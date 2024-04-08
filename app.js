@@ -58,6 +58,11 @@ function AddToCollection(email)
 
 function GetEmailIndex(email)
 {
+    if (email === "")
+    {
+        return false;
+    }
+
     for (let i = 0; i < collection.length; i++)
     {
         if (collection[i].user_email === email)
@@ -69,25 +74,42 @@ function GetEmailIndex(email)
     return false;
 }
 
-function ShowCollection()
+function ShowCollection(email="")
 {
     let imageSrcHTML = ``;
     
-    for (let i = 0; i < collection.length; i++)
+    emailIndex = GetEmailIndex(email);
+
+    //If email is not specified or invalid, show entire collection
+    if (emailIndex === false)
     {
-        imageSrcHTML += `
-        <h2>Email: ${collection[i].user_email}</h2>
-        <div class="generatedImages-Collection">`;
-
-        for (let j = 0; j < collection[i].user_images.length; j++)
+        for (let i = 0; i < collection.length; i++)
         {
-            imageSrcHTML += `<img class="generated-img" src="https://picsum.photos/${width}/${height}?random=${collection[i].user_images[j]}.jpg">`;
+            imageSrcHTML += GetEmailHTML(i);
         }
-
-        imageSrcHTML += "</div>"
+    }
+    else //Runs if email is valid
+    {
+        imageSrcHTML += GetEmailHTML(emailIndex);
     }
 
     $("#GeneratedImages-Collection").html(imageSrcHTML);
+}
+
+function GetEmailHTML(index)
+{
+    let imageSrcHTML = `
+        <h2>Email: ${collection[index].user_email}</h2>
+        <div class="generatedImages-Collection">`;
+
+    for (let i = 0; i < collection[index].user_images.length; i++)
+    {
+        imageSrcHTML += `<img class="generated-img" src="https://picsum.photos/${width}/${height}?random=${collection[index].user_images[i]}.jpg">`;
+    }
+
+    imageSrcHTML += "</div>"
+
+    return imageSrcHTML;
 }
 
 //#endregion

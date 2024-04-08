@@ -2,11 +2,6 @@ $(document).ready(()=>{
     GenerateImage();
 })
 
-$("#GeneratedImage-Container").on("click", ()=>{
-    AddToCollection();
-    GenerateImage();
-})
-
 //#region Image Generation
 
 let currentSrc;
@@ -22,14 +17,6 @@ function GenerateImage()
     $("#GeneratedImage-Container").html(`
     <img class="generated-img" src="${currentSrc}?random=${count}.jpg">
     `);
-
-    // let imgWidth = $("#GeneratedImage-Container").children(".generated-img").css("width");
-    // let imgHeight = $("#GeneratedImage-Container").children(".generated-img").css("height");
-
-    // $("#GeneratedImage-Container").css("width", imgWidth);
-    // $("#GeneratedImage-Container").css("height", imgHeight);
-
-    ShowCollection(width, height);
 }
 
 function GetImageSrc(width, height)
@@ -45,18 +32,51 @@ function GetImageSrc(width, height)
 
 const images = []; //TODO: Basic collection, need to assign to profiles
 
-function AddToCollection()
+function AddToCollection(email)
 {
-    images.push(count);
+    let emailIndex = GetEmailIndex(email);
+    if (emailIndex === false)
+    {
+        let newUser = {
+            user_email: email,
+            user_images: []
+        }
+
+        console.log("adding new user");
+
+        newUser.user_images.push(count);
+        images.push(newUser);
+    }
+    else
+    {
+        console.log("adding image to existing user")
+        images[emailIndex].user_images.push(count);
+    }
+
     count++;
 }
 
-function ShowCollection(width, height)
+function GetEmailIndex(email)
 {
-    let imageSrcHTML = "";
     for (let i = 0; i < images.length; i++)
     {
-        imageSrcHTML += `<img class="generated-img" src="https://picsum.photos/${width}/${height}?random=${i}.jpg">`;
+        if (images[i].user_email === email)
+        {
+            return i;
+        }
+    }
+
+    return false;
+}
+
+function ShowCollection(email, width, height)
+{
+    let emailIndex = GetEmailIndex(email);
+
+    let imageSrcHTML = "";
+    for (let i = 0; i < images[emailIndex].user_images.length; i++)
+    {
+        imageSrcHTML += `<img class="generated-img" src="https://picsum.photos/${width}/${height}?random=${images[emailIndex].user_images[i]}.jpg">`;
     }
 
     $("#GeneratedImages-Collection").html(imageSrcHTML);
@@ -81,8 +101,9 @@ function CheckFormFields(event)
 {
     event.preventDefault();
     let canSubmit = true;
-    let message = GetEmailMessage($("#email").val());
-    
+    let emailString = $("#email").val();
+    let message = GetEmailMessage(emailString);
+
     if(message !== "")
     {
         canSubmit = false;
@@ -91,8 +112,8 @@ function CheckFormFields(event)
     if (canSubmit)
     {
         //TODO: Submit form
-        alert("TODO: Submit");
-        ClearFormFields();
+        OnSubmitEmail(emailString);
+        //ClearFormFields();
     }
     else
     {
@@ -163,6 +184,14 @@ function GetEmailMessage(input)
     }
     
     return message;
+}
+
+function OnSubmitEmail(email)
+{
+    console.log("Saving pictures to " + email);
+    AddToCollection(email);
+    GenerateImage();
+    ShowCollection(email, width, height);
 }
 
 //#endregion

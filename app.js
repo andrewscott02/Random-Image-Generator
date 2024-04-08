@@ -30,7 +30,7 @@ function GetImageSrc(width, height)
 
 //#region Collection
 
-const images = []; //TODO: Basic collection, need to assign to profiles
+const collection = []; //TODO: Basic collection, need to assign to profiles
 
 function AddToCollection(email)
 {
@@ -45,12 +45,12 @@ function AddToCollection(email)
         console.log("adding new user");
 
         newUser.user_images.push(count);
-        images.push(newUser);
+        collection.push(newUser);
     }
     else
     {
         console.log("adding image to existing user")
-        images[emailIndex].user_images.push(count);
+        collection[emailIndex].user_images.push(count);
     }
 
     count++;
@@ -58,9 +58,9 @@ function AddToCollection(email)
 
 function GetEmailIndex(email)
 {
-    for (let i = 0; i < images.length; i++)
+    for (let i = 0; i < collection.length; i++)
     {
-        if (images[i].user_email === email)
+        if (collection[i].user_email === email)
         {
             return i;
         }
@@ -69,14 +69,22 @@ function GetEmailIndex(email)
     return false;
 }
 
-function ShowCollection(email, width, height)
+function ShowCollection()
 {
-    let emailIndex = GetEmailIndex(email);
-
-    let imageSrcHTML = "";
-    for (let i = 0; i < images[emailIndex].user_images.length; i++)
+    let imageSrcHTML = ``;
+    
+    for (let i = 0; i < collection.length; i++)
     {
-        imageSrcHTML += `<img class="generated-img" src="https://picsum.photos/${width}/${height}?random=${images[emailIndex].user_images[i]}.jpg">`;
+        imageSrcHTML += `
+        <h2>Email: ${collection[i].user_email}</h2>
+        <div class="generatedImages-Collection">`;
+
+        for (let j = 0; j < collection[i].user_images.length; j++)
+        {
+            imageSrcHTML += `<img class="generated-img" src="https://picsum.photos/${width}/${height}?random=${collection[i].user_images[j]}.jpg">`;
+        }
+
+        imageSrcHTML += "</div>"
     }
 
     $("#GeneratedImages-Collection").html(imageSrcHTML);
@@ -191,7 +199,7 @@ function OnSubmitEmail(email)
     console.log("Saving pictures to " + email);
     AddToCollection(email);
     GenerateImage();
-    ShowCollection(email, width, height);
+    ShowCollection();
 }
 
 //#endregion

@@ -27,7 +27,7 @@ body
     }
 }
 
-#GeneratedImages-Collection
+.generatedImages-Collection
 {
     display: grid;
     grid-template-columns: 1fr;

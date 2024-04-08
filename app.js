@@ -14,10 +14,16 @@ function GenerateImage()
     width = width.replace("px", "");
     height = height.replace("px", "");
 
-    currentSrc = `https://picsum.photos/${width}/${height}`;
+    currentSrc = GetImageSrc(width, height);
 
     $("#GeneratedImage-Container").html(`
     <img class="generated-img" src="${currentSrc}">
     `);
 }
 
+function GetImageSrc(width, height)
+{
+    let generateSrc = `https://picsum.photos/${width}/${height}`;
+
+    return generateSrc;
+}

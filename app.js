@@ -104,7 +104,8 @@ function GetEmailHTML(index)
 
     for (let i = 0; i < collection[index].user_images.length; i++)
     {
-        imageSrcHTML += `<img class="generated-img" src="https://picsum.photos/${width}/${height}?random=${collection[index].user_images[i]}.jpg">`;
+        imageSrcHTML += `
+        <img class="generated-img" src="https://picsum.photos/${width}/${height}?random=${collection[index].user_images[i]}.jpg">`;
     }
 
     imageSrcHTML += "</div>"

@@ -3,48 +3,97 @@ body
     background-color: rgb(152, 173, 159);
 }
 
+h1, h2
+{
+    width: fit-content;
+    background-color: white;
+
+    margin: 15px auto;
+    padding: 5px 15px;
+    border-radius: 4px;
+
+    text-align: center;
+}
+
+img
+{
+    position: relative;
+    top:0;
+    
+    width: 100%;
+    height: auto;
+
+    margin: 5px;
+    border-radius: 4px;
+    box-shadow: 0 0 15px 5px rgba(1, 0, 30, 0.6);
+
+    transition: all 0.5s ease;
+
+    &:hover
+    {
+        top: -10px;
+    }
+}
+
 #GeneratedImage-Container
 {
-    max-width: 700px;
     width: 100%;
     min-height: 200px;
     margin: auto;
 
-    img
-    {
-        width: 100%;
-        height: auto;
-    }
-
     @media screen and ((min-width: 750px) or (orientation:landscape))
     {
-        width: 60%;
+        width: 700px;
     }
 
     @media screen and (min-width: 750px)
     {
-        min-height: 500px;
+        width: 900px;
     }
 }
 
 .generatedImages-Collection
 {
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
 
-    img
+    padding: 15px;
+
+    background-color: white;
+    border-radius: 3px;
+    box-shadow: 0 0 15px 5px rgba(1, 0, 30, 0.2);
+
+    img:hover
     {
-        width: 100%;
-        height: auto;
+        width: 110%;
     }
 
     @media screen and ((min-width: 750px) or (orientation:landscape))
     {
-        grid-template-columns: 1fr 1fr;
+        img
+        {
+            width: 50%;
+        }
+
+        img:hover
+        {
+            width: 55%;
+        }
     }
 
     @media screen and (min-width: 1300px)
     {
-        grid-template-columns: 1fr 1fr 1fr;
+        img
+        {
+            width: 31%;
+        }
+
+        img:hover
+        {
+            width: 33%;
+        }
     }
 }

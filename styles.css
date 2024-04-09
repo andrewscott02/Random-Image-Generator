@@ -256,12 +256,27 @@ select
 
     background-color: rgb(223, 233, 233);
 
+    text-align: center;
+    margin: auto;
+
     &:hover
     {
         cursor: pointer;
         background-color: rgb(138, 150, 150);
     }
 }
+
+.image-generate
+{
+    display: flex;
+
+    button
+    {
+        width: 200px;
+        height: 50px;
+    }
+}
+
 
 select
 {

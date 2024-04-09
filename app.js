@@ -10,14 +10,28 @@ let count = 0;
 const imgWidth = 500;
 const imgHeight = 300;
 
+$(".image-generate").on("click", (event)=>{
+    GenerateImage();
+})
+
+let canGenerate = true;
+
 function GenerateImage()
 {
+    if (!canGenerate)
+    {
+        return;
+    }
+
+    canGenerate = false;
+
     fetch(`https://picsum.photos/${imgWidth}/${imgHeight}`)
         .then(response => CheckStatus(response))
-        .then(imgURL => SetContainerHTML(imgURL))
+        .then(imgSrc => SetContainerSrc(imgSrc))
         .catch(error => {
             console.error("An Error Occured: ", error.message);
-        });
+        })
+        .finally(()=>{canGenerate = true});
 }
 
 function CheckStatus(response)
@@ -33,7 +47,7 @@ function CheckStatus(response)
     }
 }
 
-function SetContainerHTML(imgSRC)
+function SetContainerSrc(imgSRC)
 {
     $("#GeneratedImage-Container").html(`
         <img class="generated-img" src="${imgSRC}">
@@ -188,6 +202,12 @@ $("input").on("keypress", (event)=>{
 function CheckFormFields(event)
 {
     event.preventDefault();
+
+    if (!canGenerate)
+    {
+        return;
+    }
+
     let canSubmit = true;
     let emailString = $("#email").val();
     let message = GetEmailMessage(emailString);
@@ -223,10 +243,17 @@ const emailChecks =
         required: true
     },
 
+    //Text before @
+    {
+        message: "Please enter some text before the '@' in the email address",
+        regexCheck: [/\S+@/],
+        required: true
+    },
+
     //Includes @
     {
         message: "Please include an '@' in the email address",
-        regexCheck: [/\S+@/],
+        regexCheck: [/@/],
         required: true
     },
 
@@ -292,7 +319,6 @@ function OnSubmitEmail(email)
 
 function SmoothScrollToID(ID)
 {
-    console.log("Smooth scrolling to ID: " + ID);
     $('html, body').animate({
         scrollTop: $(`${ID}`).offset().top
     }, 500);

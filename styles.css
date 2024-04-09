@@ -7,6 +7,30 @@ body
     font-family: 'Courier New', Courier, monospace;
 }
 
+.grid-container
+{
+    width: 100%;
+    display: grid;
+
+    grid-gap: 15px;
+    grid-template-columns: 1fr;
+
+    @media screen and (orientation:landscape)
+    {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    /* @media screen and (min-width: 750px)
+    {
+        width: 700px;
+    }
+
+    @media screen and (min-width: 1300px)
+    {
+        width: 900px;
+    } */
+}
+
 h1, h2
 {
     width: fit-content;
@@ -50,7 +74,12 @@ img
 
     margin: auto;
 
-    @media screen and ((min-width: 750px) or (orientation:landscape))
+    @media screen and (orientation:landscape)
+    {
+        width: 100%;
+    }
+
+    @media screen and (min-width: 750px)
     {
         width: 700px;
     }
@@ -154,17 +183,24 @@ fieldset
 {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     
     border: none;
 
-    @media screen and ((min-width: 750px) or (orientation:landscape))
+    @media screen and (orientation:landscape)
+    {
+        flex-direction: column;
+    }
+
+    @media screen and (min-width: 750px)
     {
         flex-direction: row;
     }
 }
 
 .form-email,
-.form-sbmt
+.form-sbmt,
+.form-list
 {
     display: flex;
     flex-wrap: wrap;
@@ -182,6 +218,21 @@ fieldset
     {
         margin-right: 25px;
     }
+
+    @media screen and (orientation:landscape)
+    {
+        margin: 8px auto;
+    }
+
+    @media screen and (min-width: 750px)
+    {
+        margin: 8px 15px;
+    }
+}
+
+.form-list
+{
+    margin: 8px auto;
 }
 
 input[type="email"]
@@ -199,7 +250,8 @@ input[type="email"]
     }
 }
 
-button
+button,
+select
 {
     width: 100px;
     height: 40px;
@@ -215,4 +267,13 @@ button
         cursor: pointer;
         background-color: rgb(138, 150, 150);
     }
+}
+
+select
+{
+    font-size: 1.25rem;
+    width: 100%;
+    max-width: 250px;
+    text-align: center;
+    overflow-wrap: anywhere;
 }

@@ -35,24 +35,34 @@ function AddToDropListDropList(newEmail)
     let optionsHTML = $("#DropList").children("optgroup").html();
 
     optionsHTML += `
-        <option value="${newEmail}">${newEmail}</option>
+        <option class="option" value="${newEmail}">${newEmail}</option>
         `;
 
     $("#DropList").children("optgroup").html(optionsHTML);
 
     GetSelectedItem();
+
+    let emailIndex = GetEmailIndex(newEmail);
+
+    SmoothScrollToID(`#EMAIL_${emailIndex}`)
 }
 
-$('#DropList').on("click", ()=>{
-    console.log("click event called");
+$('#DropList').change((event)=>{
+    console.log(event.target);
     GetSelectedItem();
 })
 
 function GetSelectedItem()
 {
     let currentlySelected = $('#DropList').val();
-    console.log("Getting drop list item " + currentlySelected);
     ShowCollection(currentlySelected);
+
+    let emailIndex = GetEmailIndex(currentlySelected);
+
+    emailIndex = emailIndex == false ? 0 : emailIndex;
+
+    SmoothScrollToID(`#EMAIL_${emailIndex}`)
+
     return currentlySelected;
 }
 
@@ -72,8 +82,6 @@ function AddToCollection(email)
             user_images: []
         }
 
-        console.log("adding new user");
-
         newUser.user_images.push(count);
         collection.push(newUser);
 
@@ -81,7 +89,6 @@ function AddToCollection(email)
     }
     else
     {
-        console.log("adding image to existing user")
         collection[emailIndex].user_images.push(count);
     }
 
@@ -132,7 +139,7 @@ function GetEmailHTML(index)
 {
     let imageSrcHTML = `
         <h2>Email: ${collection[index].user_email}</h2>
-        <div class="generatedImages-Collection">`;
+        <div id="EMAIL_${index}" class="generatedImages-Collection">`;
 
     for (let i = 0; i < collection[index].user_images.length; i++)
     {
@@ -267,10 +274,21 @@ function GetEmailMessage(input)
 
 function OnSubmitEmail(email)
 {
-    console.log("Saving pictures to " + email);
     AddToCollection(email);
     GenerateImage();
     ShowCollection();
+}
+
+//#endregion
+
+//#region Smooth Scroll
+
+function SmoothScrollToID(ID)
+{
+    console.log("Smooth scrolling to ID: " + ID);
+    $('html, body').animate({
+        scrollTop: $(`${ID}`).offset().top
+    }, 500);
 }
 
 //#endregion

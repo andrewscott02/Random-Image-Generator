@@ -3,28 +3,22 @@
 body
 {
     background-color: rgb(152, 173, 159);
+
+    font-family: 'Courier New', Courier, monospace;
 }
 
 h1, h2
 {
-    position: relative;
-    top: 0;
-
     width: fit-content;
     background-color: aliceblue;
 
+    max-width: 100%;
     margin: 15px auto;
     padding: 5px 15px;
     border-radius: 8px;
 
     text-align: center;
-
-    transition: all 0.5s ease;
-
-    &:hover
-    {
-        top: -5px;
-    }
+    overflow-wrap: anywhere;
 }
 
 img
@@ -95,6 +89,8 @@ img
     {
         width: 110%;
         z-index: 1000;
+
+        border-radius: 2px;
     }
 
     .collection-img-container
@@ -151,6 +147,7 @@ h3
     font-size: 1.25rem;
     font-weight: 800;
     text-align: center;
+    overflow-wrap: anywhere;
 }
 
 fieldset
@@ -170,6 +167,8 @@ fieldset
 .form-sbmt
 {
     display: flex;
+    flex-wrap: wrap;
+
     margin: 8px auto;
     align-items: center;
     justify-content: center;
@@ -185,18 +184,35 @@ fieldset
     }
 }
 
+input[type="email"]
+{
+    width: 100%;
+
+    @media screen and ((min-width: 750px) or (orientation:landscape))
+    {
+        width: 300px;
+    }
+
+    @media screen and (min-width: 1300px)
+    {
+        width: 500px;
+    }
+}
+
 button
 {
     width: 100px;
     height: 40px;
 
+    font-family: 'Courier New', Courier, monospace;
     font-size: 1.25rem;
-    font-weight: 800;
+    font-weight: 1000;
 
     background-color: rgb(223, 233, 233);
 
     &:hover
     {
+        cursor: pointer;
         background-color: rgb(138, 150, 150);
     }
 }

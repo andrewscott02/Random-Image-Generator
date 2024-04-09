@@ -182,6 +182,20 @@ const emailChecks =
         message: "Please include an '@' in the email address",
         regexCheck: [/\S+@/],
         required: true
+    },
+
+    //Doesn't include special characters eg. [ ] ( ) , ; : < > | or = 
+    {
+        message: "Please do not include and special characters in the email address eg. [ ] ( ) , ; : < > | or = ",
+        regexCheck: [/[,:;=|\[\]<>()]/],
+        required: false
+    },
+
+    //Doesn't include spaces
+    {
+        message: "Please do not include any spaces in the email address",
+        regexCheck: [/\s/],
+        required: false
     }
 ]
 

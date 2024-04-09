@@ -7,23 +7,38 @@ $(document).ready(()=>{
 let currentSrc;
 let count = 0;
 
-const width = 500;
-const height = 300;
+const imgWidth = 500;
+const imgHeight = 300;
 
 function GenerateImage()
 {
-    currentSrc = GetImageSrc(width, height);
-
-    $("#GeneratedImage-Container").html(`
-    <img class="generated-img" src="${currentSrc}?random=${count}.jpg">
-    `);
+    let tryURL = `https://picsum.photos/${imgWidth}/${imgHeight}`
+    fetch(tryURL)
+        .then(response => CheckStatus)
+        .then(imgURL => SetContainerHTML)
+        .catch(error => {
+            console.error("An Error Occured: ", error.message);
+        });
 }
 
-function GetImageSrc(width, height)
+function CheckStatus(response)
 {
-    let generateSrc = `https://picsum.photos/${width}/${height}`;
+    if (response.ok)
+    {
+        Promise.resolve(response)
+    }
+    else
+    {
+        Promise.reject(new Error(response.statusText));
+    }
+}
 
-    return generateSrc;
+function SetContainerHTML(imgSRC)
+{
+    console.log(imgSRC);
+    $("#GeneratedImage-Container").html(`
+        <img class="generated-img" src="${imgSRC}?random=${count}.jpg">
+    `);
 }
 
 //#endregion
@@ -145,7 +160,7 @@ function GetEmailHTML(index)
     {
         imageSrcHTML += `
         <div class="collection-img-container">
-        <img class="generated-img" src="https://picsum.photos/${width}/${height}?random=${collection[index].user_images[i]}.jpg">
+        <img class="generated-img" src="https://picsum.photos/${imgWidth}/${imgHeight}?random=${collection[index].user_images[i]}.jpg">
         </div>`;
     }
 

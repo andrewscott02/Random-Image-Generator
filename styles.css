@@ -190,13 +190,7 @@ fieldset
     
     border: none;
 
-    @media screen and (orientation:landscape)
-    {
-        flex-direction: column;
-        flex-wrap: wrap;
-    }
-
-    @media screen and (min-width: 750px)
+    @media screen and ((min-width: 750px) or (orientation:landscape))
     {
         flex-direction: column;
         flex-wrap: wrap;

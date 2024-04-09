@@ -28,6 +28,36 @@ function GetImageSrc(width, height)
 
 //#endregion
 
+//#region Drop List
+
+function AddToDropListDropList(newEmail)
+{
+    let optionsHTML = $("#DropList").children("optgroup").html();
+
+    optionsHTML += `
+        <option value="${newEmail}">${newEmail}</option>
+        `;
+
+    $("#DropList").children("optgroup").html(optionsHTML);
+
+    GetSelectedItem();
+}
+
+$('#DropList').on("click", ()=>{
+    console.log("click event called");
+    GetSelectedItem();
+})
+
+function GetSelectedItem()
+{
+    let currentlySelected = $('#DropList').val();
+    console.log("Getting drop list item " + currentlySelected);
+    ShowCollection(currentlySelected);
+    return currentlySelected;
+}
+
+//#endregion
+
 //#region Collection
 
 const collection = []; //TODO: Basic collection, need to assign to profiles
@@ -46,6 +76,8 @@ function AddToCollection(email)
 
         newUser.user_images.push(count);
         collection.push(newUser);
+
+        AddToDropListDropList(email);
     }
     else
     {

@@ -14,8 +14,7 @@ function GenerateImage()
 {
     console.log("Fetching image");
     
-    let tryURL = `https://picsum.photos/${imgWidth}/${imgHeight}`
-    fetch(tryURL)
+    fetch(`https://picsum.photos/${imgWidth}/${imgHeight}`)
         .then(response => { CheckStatus(response); })
         .then(imgURL => { SetContainerHTML(imgURL); })
         .catch(error => {
@@ -25,10 +24,11 @@ function GenerateImage()
 
 function CheckStatus(response)
 {
-    console.log("Checking status");
+    console.log("Checking status; " + response);
     if (response.ok)
     {
-        Promise.resolve(response)
+        Promise.resolve(response);
+        return response.url;
     }
     else
     {
@@ -201,21 +201,12 @@ function CheckFormFields(event)
 
     if (canSubmit)
     {
-        //TODO: Submit form
         OnSubmitEmail(emailString);
-        //ClearFormFields();
     }
     else
     {
         alert(message);
     }
-}
-
-function ClearFormFields()
-{
-    $("input").each((index, element)=>{
-        $(element).val("");
-    });
 }
 
 const emailChecks =

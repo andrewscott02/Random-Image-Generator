@@ -12,10 +12,12 @@ const imgHeight = 300;
 
 function GenerateImage()
 {
+    console.log("Fetching image");
+    
     let tryURL = `https://picsum.photos/${imgWidth}/${imgHeight}`
     fetch(tryURL)
-        .then(response => CheckStatus)
-        .then(imgURL => SetContainerHTML)
+        .then(response => { CheckStatus(response); })
+        .then(imgURL => { SetContainerHTML(imgURL); })
         .catch(error => {
             console.error("An Error Occured: ", error.message);
         });
@@ -23,6 +25,7 @@ function GenerateImage()
 
 function CheckStatus(response)
 {
+    console.log("Checking status");
     if (response.ok)
     {
         Promise.resolve(response)
@@ -35,7 +38,7 @@ function CheckStatus(response)
 
 function SetContainerHTML(imgSRC)
 {
-    console.log(imgSRC);
+    console.log("Got image source: " + imgSRC);
     $("#GeneratedImage-Container").html(`
         <img class="generated-img" src="${imgSRC}?random=${count}.jpg">
     `);

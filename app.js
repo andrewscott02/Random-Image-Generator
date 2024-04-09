@@ -12,11 +12,9 @@ const imgHeight = 300;
 
 function GenerateImage()
 {
-    console.log("Fetching image");
-    
     fetch(`https://picsum.photos/${imgWidth}/${imgHeight}`)
-        .then(response => { CheckStatus(response); })
-        .then(imgURL => { SetContainerHTML(imgURL); })
+        .then(response => CheckStatus(response))
+        .then(imgURL => SetContainerHTML(imgURL))
         .catch(error => {
             console.error("An Error Occured: ", error.message);
         });
@@ -24,7 +22,6 @@ function GenerateImage()
 
 function CheckStatus(response)
 {
-    console.log("Checking status; " + response);
     if (response.ok)
     {
         Promise.resolve(response);
@@ -38,10 +35,11 @@ function CheckStatus(response)
 
 function SetContainerHTML(imgSRC)
 {
-    console.log("Got image source: " + imgSRC);
     $("#GeneratedImage-Container").html(`
-        <img class="generated-img" src="${imgSRC}?random=${count}.jpg">
+        <img class="generated-img" src="${imgSRC}">
     `);
+
+    currentSrc = imgSRC;
 }
 
 //#endregion
@@ -100,14 +98,14 @@ function AddToCollection(email)
             user_images: []
         }
 
-        newUser.user_images.push(count);
+        newUser.user_images.push(currentSrc);
         collection.push(newUser);
 
         AddToDropListDropList(email);
     }
     else
     {
-        collection[emailIndex].user_images.push(count);
+        collection[emailIndex].user_images.push(currentSrc);
     }
 
     count++;
@@ -163,7 +161,7 @@ function GetEmailHTML(index)
     {
         imageSrcHTML += `
         <div class="collection-img-container">
-        <img class="generated-img" src="https://picsum.photos/${imgWidth}/${imgHeight}?random=${collection[index].user_images[i]}.jpg">
+        <img class="generated-img" src="${collection[index].user_images[i]}">
         </div>`;
     }
 

@@ -1,0 +1,9 @@
+Requires SASS
+
+In max view, left and right margins are not equal
+    Image is centered in div, but is not full width so appears off from sides
+
+Do not autoload new image, allow user to assign it to multiple emails
+    Also prevent same image from being added to the same email multiple times
+
+Remove console logs

@@ -4,13 +4,14 @@
 
 body
 {
+    min-height: 100vh;
     height: 100%;
 
     background-color: rgb(152, 173, 159);
     background-image: linear-gradient(145deg,
-                                        #517e69,
-                                        #a4beb1 40%, 
-                                        rgb(58, 85, 63));
+                                        $color-primary,
+                                        $color-primary-light 40%, 
+                                        $color-primary-dark);
 
     font-family: 'Courier New', Courier, monospace;
 }

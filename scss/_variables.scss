@@ -1,0 +1,14 @@
+/* ========================================================== */
+/* Variables */
+/* ========================================================== */
+
+@use 'sass:color';
+
+$color-primary: #517e69;
+$color-primary-light: lighten($color-primary, 30%);
+
+$color-primary-dark: saturate(darken($color-primary, 16%), 15%);
+$color-primary-dark: color.adjust($color-primary-dark, $red: 20);
+
+$color-secondary: saturate(darken($color-primary, 15%), 15%);;
+$color-secondary: color.adjust($color-secondary, $alpha: -0.5);

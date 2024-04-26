@@ -61,7 +61,13 @@ function SetContainerSrc(imgSRC)
 
 //#region Drop List
 
-function AddToDropListDropList(newEmail)
+function AddToDropLists(newEmail)
+{
+    AddToShowCollectionDropList(newEmail);
+    AddToAddDropList(newEmail);
+}
+
+function AddToShowCollectionDropList(newEmail)
 {
     let optionsHTML = $("#DropList").children("optgroup").html();
 
@@ -78,23 +84,20 @@ function AddToDropListDropList(newEmail)
     SmoothScrollToID(`#EMAIL_${emailIndex}`)
 }
 
+function AddToAddDropList(newEmail)
+{
+    let optionsHTML = $("#AddList").html();
+
+    optionsHTML += `
+        <option class="option" value="${newEmail}">${newEmail}</option>
+        `;
+
+    $("#AddList").html(optionsHTML);
+}
+
 $('#DropList').change((event)=>{
     GetSelectedItem();
 })
-
-$('#DropList').on("click", (event)=>{
-    $('#DropList').toggleClass("open");
-})
-
-$('#DropList').on("blur", (event)=>{
-    $('#DropList').removeClass("open");
-})
-
-$(document).keyup(function(e) {
-    if (e.keyCode == 27) { 
-        $('#DropList').removeClass("open");
-    }
-});
 
 function GetSelectedItem()
 {
@@ -102,8 +105,6 @@ function GetSelectedItem()
     ShowCollection(currentlySelected);
 
     let emailIndex = GetEmailIndex(currentlySelected);
-
-    ShowAddImageBtn(emailIndex !== false);
 
     emailIndex = emailIndex == false ? 0 : emailIndex;
 
@@ -116,6 +117,29 @@ function ForceSelectItem(email)
 {
     document.getElementById('DropList').value=email;
 }
+
+//#region Styling Changes when Open
+
+$('select').on("click", (event)=>{
+    $(event.target).toggleClass("open");
+})
+
+$('select').on("blur", (event)=>{
+    $(event.target).removeClass("open");
+})
+
+$(document).keyup(function(e) {
+    if (e.keyCode == 27) { 
+        $('select').removeClass("open");
+    }
+});
+
+$(document).on('scroll', function (event)
+{
+    $('select').removeClass("open");
+});
+
+//#endregion
 
 //#endregion
 
@@ -137,7 +161,7 @@ function AddToCollection(email)
         newUser.user_images.push(currentSrc);
         collection.push(newUser);
 
-        AddToDropListDropList(email);
+        AddToDropLists(email);
     }
     else if (!collection[emailIndex].user_images.includes(currentSrc))
     {
@@ -369,7 +393,7 @@ function OnSubmitEmail(email)
 
 //#endregion
 
-//#region Add To Current Collection
+//#region Quick Add To Existing Collection
 
 $(".form-add").on("click", (event)=>{
     event.preventDefault();
@@ -385,11 +409,6 @@ $(".form-add").on("click", (event)=>{
         }
     }
 })
-
-function ShowAddImageBtn(visible)
-{
-    visible === false ? $(".form-add").hide() : $(".form-add").show();
-}
 
 //#endregion
 

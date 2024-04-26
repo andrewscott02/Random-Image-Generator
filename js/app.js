@@ -134,7 +134,7 @@ $(document).keyup(function(e) {
     }
 });
 
-$(document).on('scroll', function (event)
+$(window).bind('mousewheel DOMMouseScroll', function (event)
 {
     $('select').removeClass("open");
 });

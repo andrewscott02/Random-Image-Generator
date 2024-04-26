@@ -46,7 +46,7 @@ fieldset
     display: flex;
     flex-wrap: wrap;
 
-    margin: 8px auto;
+    margin: 4px auto;
     align-items: center;
     justify-content: center;
     width: fit-content;
@@ -58,13 +58,28 @@ fieldset
 
     @media screen and ((min-width: 750px) or (orientation:landscape))
     {
-        margin: 8px auto;
+        margin: 4px auto;
     }
 }
 
 .form-list
 {
-    margin: 8px auto;
+    margin: 15px auto 8px;
+}
+
+.form-add
+{
+    flex-direction: column;
+    width: 80%;
+
+    div
+    {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        
+        width: 100%;
+    }
 }
 
 input[type="email"]

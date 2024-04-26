@@ -1,9 +1,8 @@
-Requires SASS
 
-In max view, left and right margins are not equal
-    Image is centered in div, but is not full width so appears off from sides
-
-Do not autoload new image, allow user to assign it to multiple emails
-    Also prevent same image from being added to the same email multiple times
-
-Remove console logs
+Done:
+-SCSS files
+-Folders for CSS, SASS and JS
+-Fixed left and right margins on desktop view
+-Fixed generate image button from div to button
+-Remove console logs
+-Other styling changes

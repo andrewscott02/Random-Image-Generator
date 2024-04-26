@@ -10,7 +10,7 @@ let count = 0;
 const imgWidth = 500;
 const imgHeight = 300;
 
-$(".image-generate").on("click", (event)=>{
+$(".btn-generate").on("click", (event)=>{
     GenerateImage();
 })
 
@@ -29,7 +29,8 @@ function GenerateImage()
         .then(response => CheckStatus(response))
         .then(imgSrc => SetContainerSrc(imgSrc))
         .catch(error => {
-            console.error("An Error Occured: ", error.message);
+            // Only in development
+            // console.error("An Error Occured: ", error.message);
         })
         .finally(()=>{canGenerate = true});
 }
@@ -78,7 +79,6 @@ function AddToDropListDropList(newEmail)
 }
 
 $('#DropList').change((event)=>{
-    console.log(event.target);
     GetSelectedItem();
 })
 
@@ -107,6 +107,7 @@ function AddToCollection(email)
     let emailIndex = GetEmailIndex(email);
     if (emailIndex === false)
     {
+        //Email is not in use, add new email then add to collection
         let newUser = {
             user_email: email,
             user_images: []
@@ -117,9 +118,15 @@ function AddToCollection(email)
 
         AddToDropListDropList(email);
     }
+    else if (!collection[emailIndex].user_images.includes(currentSrc))
+    {
+        //Email is in use, add to array
+        collection[emailIndex].user_images.push(currentSrc);
+    }
     else
     {
-        collection[emailIndex].user_images.push(currentSrc);
+        alert("Image has been added to that email already. \n\nPlease generate a new image or add it to a different email address.");
+        return false;
     }
 
     count++;
@@ -309,7 +316,7 @@ function GetEmailMessage(input)
 function OnSubmitEmail(email)
 {
     AddToCollection(email);
-    GenerateImage();
+    
     ShowCollection();
 }
 

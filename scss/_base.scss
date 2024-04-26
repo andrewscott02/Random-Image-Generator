@@ -1,0 +1,69 @@
+/* ========================================================== */
+/* Base Styling */
+/* ========================================================== */
+
+body
+{
+    background-color: rgb(152, 173, 159);
+
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.grid-container
+{
+    width: 100%;
+    display: grid;
+
+    grid-gap: 15px;
+    grid-template-columns: 1fr;
+
+    @media screen and (orientation:landscape)
+    {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+h1, h2
+{
+    width: fit-content;
+    background-color: aliceblue;
+
+    max-width: 100%;
+    margin: 15px auto;
+    padding: 5px 15px;
+    border-radius: 8px;
+
+    text-align: center;
+    overflow-wrap: anywhere;
+}
+
+h3
+{
+    width: fit-content;
+    margin: 15px auto 5px;
+
+    color: white;
+    font-size: 1.25rem;
+    font-weight: 800;
+    text-align: center;
+    overflow-wrap: anywhere;
+}
+
+img
+{
+    position: relative;
+    top:0;
+    
+    width: 100%;
+    height: auto;
+    
+    border-radius: 4px;
+    box-shadow: 0 0 15px 5px rgba(1, 0, 30, 0.6);
+
+    transition: all 0.5s ease;
+
+    &:hover
+    {
+        top: -10px;
+    }
+}

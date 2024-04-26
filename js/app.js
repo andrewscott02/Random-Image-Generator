@@ -82,6 +82,20 @@ $('#DropList').change((event)=>{
     GetSelectedItem();
 })
 
+$('#DropList').on("click", (event)=>{
+    $('#DropList').toggleClass("open");
+})
+
+$('#DropList').on("blur", (event)=>{
+    $('#DropList').removeClass("open");
+})
+
+$(document).keyup(function(e) {
+    if (e.keyCode == 27) { 
+        $('#DropList').removeClass("open");
+    }
+});
+
 function GetSelectedItem()
 {
     let currentlySelected = $('#DropList').val();

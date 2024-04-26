@@ -4,7 +4,13 @@
 
 body
 {
+    height: 100vh;
+
     background-color: rgb(152, 173, 159);
+    background-image: linear-gradient(145deg,
+                                        #517e69,
+                                        #a4beb1 40%, 
+                                        rgb(58, 85, 63));
 
     font-family: 'Courier New', Courier, monospace;
 }
@@ -42,7 +48,7 @@ h3
     width: fit-content;
     margin: 15px auto 5px;
 
-    color: white;
+    color: rgb(0, 0, 0);
     font-size: 1.25rem;
     font-weight: 800;
     text-align: center;

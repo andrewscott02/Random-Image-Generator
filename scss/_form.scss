@@ -2,11 +2,6 @@
 /* Form Styling */
 /* ========================================================== */
 
-#Form
-{
-    // max-width: 90vw;
-}
-
 .form-container
 {
     height: 100%;
@@ -64,7 +59,7 @@ fieldset
 
 .form-list
 {
-    margin: 15px auto 8px;
+    margin: 15px auto 15px;
 }
 
 .form-add
@@ -76,7 +71,8 @@ fieldset
     {
         display: flex;
         flex-wrap: wrap;
-        gap: 10px;
+        gap: 15px;
+        justify-content: center;
         
         width: 100%;
     }
@@ -116,15 +112,21 @@ select
     text-align: center;
     padding: 1px 15px;
 
-    @media screen and ((min-width: 162px) or (orientation:landscape))
-    {
-        margin: auto;
-    }
-
     &:hover
     {
         cursor: pointer;
         background-color: rgb(138, 150, 150);
+    }
+}
+
+.image-generate
+{
+    button
+    {
+        @media screen and ((min-width: 162px) or (orientation:landscape))
+        {
+            margin: auto;
+        }
     }
 }
 

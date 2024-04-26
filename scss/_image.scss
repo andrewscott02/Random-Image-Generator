@@ -8,6 +8,11 @@
     height: auto;
     aspect-ratio: 16 / 10;
     max-width: 90vw;
+
+    @media screen and ((min-width: 162px) or (orientation:landscape))
+    {
+        margin: auto;
+    }
 }
 
 .generatedImages-Collection
@@ -72,11 +77,6 @@
     align-items: center;
 
     margin: 5px;
-}
-
-.image-generator-container
-{
-    max-width: 90vw;
 }
 
 .image-generate

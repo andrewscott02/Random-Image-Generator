@@ -89,11 +89,18 @@ function GetSelectedItem()
 
     let emailIndex = GetEmailIndex(currentlySelected);
 
+    ShowAddImageBtn(emailIndex !== false);
+
     emailIndex = emailIndex == false ? 0 : emailIndex;
 
     SmoothScrollToID(`#EMAIL_${emailIndex}`)
 
     return currentlySelected;
+}
+
+function ForceSelectItem(email)
+{
+    document.getElementById('DropList').value=email;
 }
 
 //#endregion
@@ -150,6 +157,18 @@ function GetEmailIndex(email)
     return false;
 }
 
+function GetEmailFromIndex(index)
+{
+    if (index > collection.length || index < 0)
+    {
+        return false;
+    }
+
+    return collection[index].user_email;
+}
+
+let currentCollection = false;
+
 function ShowCollection(email="")
 {
     let imageSrcHTML = ``;
@@ -163,10 +182,13 @@ function ShowCollection(email="")
         {
             imageSrcHTML += GetEmailHTML(i);
         }
+
+        currentCollection = false;
     }
     else //Runs if email is valid
     {
         imageSrcHTML += GetEmailHTML(emailIndex);
+        currentCollection = emailIndex;
     }
 
     $("#GeneratedImages-Collection").html(imageSrcHTML);
@@ -316,8 +338,43 @@ function GetEmailMessage(input)
 function OnSubmitEmail(email)
 {
     AddToCollection(email);
+
+    show = email;
+    emailIndex = GetEmailIndex(email);
+
+    //If email address to assign is already being shown, do not need to filter
+    if (currentCollection === false && currentCollection !== emailIndex)
+    {
+        show = "";
+    }
     
-    ShowCollection();
+    ShowCollection(show);
+
+    ForceSelectItem(show);
+}
+
+//#endregion
+
+//#region Add To Current Collection
+
+$(".form-add").on("click", (event)=>{
+    event.preventDefault();
+
+    if (currentCollection !== false)
+    {
+        var email = GetEmailFromIndex(currentCollection);
+
+        if (email !== false)
+        {
+            AddToCollection(email);
+            ShowCollection(email);
+        }
+    }
+})
+
+function ShowAddImageBtn(visible)
+{
+    visible === false ? $(".form-add").hide() : $(".form-add").show();
 }
 
 //#endregion

@@ -1,8 +1,0 @@
-
-Done:
--SCSS files
--Folders for CSS, SASS and JS
--Fixed left and right margins on desktop view
--Fixed generate image button from div to button
--Remove console logs
--Other styling changes

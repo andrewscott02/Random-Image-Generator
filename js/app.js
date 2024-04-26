@@ -395,18 +395,16 @@ function OnSubmitEmail(email)
 
 //#region Quick Add To Existing Collection
 
-$(".form-add").on("click", (event)=>{
+$(".btn-add").on("click", (event)=>{
     event.preventDefault();
 
-    if (currentCollection !== false)
-    {
-        var email = GetEmailFromIndex(currentCollection);
+    var email = document.getElementById('AddList').value;
 
-        if (email !== false)
-        {
-            AddToCollection(email);
-            ShowCollection(email);
-        }
+    console.log(email);
+
+    if (email !== false)
+    {
+        OnSubmitEmail(email);
     }
 })
 

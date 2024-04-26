@@ -400,8 +400,6 @@ $(".btn-add").on("click", (event)=>{
 
     var email = document.getElementById('AddList').value;
 
-    console.log(email);
-
     if (email !== false)
     {
         OnSubmitEmail(email);

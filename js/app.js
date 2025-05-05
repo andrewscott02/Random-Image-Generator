@@ -235,7 +235,7 @@ function ShowCollection(email="")
 function GetEmailHTML(index)
 {
     let imageSrcHTML = `
-        <h2>Email: ${collection[index].user_email}</h2>
+        <h2>Collection: ${collection[index].user_email}</h2>
         <div id="EMAIL_${index}" class="generatedImages-Collection">`;
 
     for (let i = 0; i < collection[index].user_images.length; i++)
@@ -296,45 +296,10 @@ function CheckFormFields(event)
 
 const emailChecks =
 [
-    //Does not end on .
-    {
-        message: "'.' is used at the wrong position in the email address",
-        regexCheck: [/\.$/, /@+\./],
-        required: false
-    },
-
-    //Text after @
-    {
-        message: "Please enter some text after the '@' in the email address",
-        regexCheck: [/@+\S/],
-        required: true
-    },
-
-    //Text before @
-    {
-        message: "Please enter some text before the '@' in the email address",
-        regexCheck: [/\S+@/],
-        required: true
-    },
-
-    //Includes @
-    {
-        message: "Please include an '@' in the email address",
-        regexCheck: [/@/],
-        required: true
-    },
-
     //Doesn't include special characters eg. [ ] ( ) , ; : < > | or = 
     {
         message: "Please do not include and special characters in the email address eg. [ ] ( ) , ; : < > | or = ",
         regexCheck: [/[,:;=|\[\]<>()]/],
-        required: false
-    },
-
-    //Doesn't include spaces
-    {
-        message: "Please do not include any spaces in the email address",
-        regexCheck: [/\s/],
         required: false
     }
 ]
